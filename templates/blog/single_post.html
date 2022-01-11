@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="hero hero-single route bg-image" style="background-color: black;">
+  <!-- <div class="overlay-mf"></div> -->
+  <div class="hero-content display-table">
+    <div class="table-cell">
+      <div class="container">
+        <h2 class="hero-title mb-4">{{ posts.title }}</h2>
+        <ol class="breadcrumb d-flex justify-content-center">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">Home</a>
+          </li>
+          <li class="breadcrumb-item active">Post</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <main id="main">
+
+    <!-- ======= Blog Single Section ======= -->
+    <section class="blog-wrapper sect-pt4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="post-box">
+              <div class="post-thumb">
+                <img src="{{ post.photo.url }}" class="img-fluid" alt="">
+              </div>
+              <div class="post-meta">
+                <h1 class="article-title">{{ posts.title }}</h1>
+                <ul>
+                  <li>
+                    <span class="bi bi-person"></span>
+                    <a >{{ posts.author }}</a>
+                  </li>
+                  <!-- <li>
+                    <span class="bi bi-tag"></span>
+                    <a href="#">Web Design</a>
+                  </li> -->
+                  <li>
+                    <span class="bi bi-chat-left-text"></span>
+                    <a href="#comments">{{ posts.comments.count }}</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="article-content">
+                {{ posts.body | safe }}
+              </div>
+            </div>
+
+            <!-- Comments section -->
+            <div class="box-comments">
+              <div class="title-box-2">
+                <h4 class="title-comments title-left" id="comments">Comments ({{ posts.comments.count }})</h4>
+              </div>
+              {% if not comments %}
+              <ul class="list-comments">
+                <li>
+                  No Comments
+                </li>
+              </ul>
+              {% else %}
+              {% for comment in comments %}
+              <ul class="list-comments">
+                <li>
+                  <div class="comment-details">
+                    <h4 class="comment-author">{{ comment.name }}</h4>
+                    <span>{{ comment.date_added | timesince }}</span>
+                    <p>
+                      {{ comment.body }}
+                    </p>
+                  </div>
+                </li>
+              </ul>
+              {% endfor %}
+              {% endif %}
+            </div>
+            <!-- end comments -->
+
+            <!-- End add comment form -->
+            <div class="form-comments">
+              <div class="title-box-2">
+                <h3 class="title-left">
+                  Leave a Reply
+                </h3>
+              </div>
+              <form action="{% url 'comment' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="slug_id" value="{{ posts.slug }}">
+                <input type="hidden" name="post_id" value="{{ posts.id }}">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <input type="text" class="form-control input-mf" name="user_name" placeholder="Name *" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <input type="email" class="form-control input-mf" name="user_email" placeholder="Email">
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                      <textarea class="form-control input-mf" placeholder="Comment *" name="comment_body" cols="45" rows="8" required></textarea>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <button type="submit" class="button button-a button-big button-rouded">Add Comment</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- End add comment form -->
+          </div>
+          <div class="col-md-4">
+            <div class="widget-sidebar">
+              <h5 class="sidebar-title">Recent Posts</h5>
+              <div class="sidebar-content">
+                <ul class="list-sidebar">
+                  {% if recent_posts %}
+                  {% for post in recent_posts %}
+                  <li>
+                    <a href="{% url 'blog' post.slug %}">{{ post.title }} - {{ post.published_date | naturaltime }} </a>
+                  </li>
+                  {% endfor %}
+                  {% else %}
+                    <li>No recent posts</li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Blog Single Section -->
+
+  </main><!-- End #main -->
+{% endblock %}
