@@ -165,3 +165,8 @@ MESSAGE_TAGS = {
 
 RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
