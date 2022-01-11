@@ -145,13 +145,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Email Settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST=config('EMAIL_HOST')
-EMAIL_PORT=config('EMAIL_PORT')
-EMAIL_HOST_USER=config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS=config('EMAIL_USE_TLS')
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST=config('EMAIL_HOST')
+# EMAIL_PORT=config('EMAIL_PORT')
+# EMAIL_HOST_USER=config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS=config('EMAIL_USE_TLS')
+# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -163,8 +163,8 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
-RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
+# RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
+# RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 
 try:
     from .local_settings import *
