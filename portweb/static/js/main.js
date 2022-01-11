@@ -4,10 +4,6 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-setTimeout(function() {
-  $('#message').fadeOut('slow');
-}, 3000);
-
 (function() {
   "use strict";
 
