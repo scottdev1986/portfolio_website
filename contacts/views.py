@@ -12,10 +12,10 @@ def contacts(request):
         if form.is_valid():
             name = form.cleaned_data['name']
             subject = form.cleaned_data['subject']
-            from_email = form.cleaned_data['from_email']
-            message = form.cleaned_data['message']
+            from_email = config('EMAIL_HOST_USER')
+            message = f"From: {form.cleaned_data['from_email']} \n\nMessage: {form.cleaned_data['message']} "
             try:
-                send_mail(subject, message, from_email, [config('EMAIL_HOST_USER')], fail_silently=False)
+                send_mail(subject, message, from_email, [config('RECIPIENT_ADDRESS')], fail_silently=False)
                 messages.success(request, 'Your email has been sent')
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
